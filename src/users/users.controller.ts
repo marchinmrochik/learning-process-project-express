@@ -55,7 +55,7 @@ export class UserController extends BaseController implements IUserController {
 			return next(new HTTPError(401, 'Authorization error', 'login'));
 		}
 
-		const jwt = await this.signJWT(body.email, this.configService.get('SECRET')); 
+		const jwt = await this.signJWT(body.email, this.configService.get('SECRET'));
 
 		this.ok(res, { jwt });
 	}
@@ -88,14 +88,18 @@ export class UserController extends BaseController implements IUserController {
 				(err, token) => {
 					if (err) reject(err);
 
-					resolve(token as string); 
+					resolve(token as string);
 				},
 			);
 		});
 	}
 
-	async info({ user }: Request<{}, {}, UserRegisterDTO>,res: Response, next: NextFunction,): Promise<void> {
-		const userInfo = await this.userService.getUserInfo(user)
+	async info(
+		{ user }: Request<{}, {}, UserRegisterDTO>,
+		res: Response,
+		next: NextFunction,
+	): Promise<void> {
+		const userInfo = await this.userService.getUserInfo(user);
 		this.ok(res, { email: userInfo?.email, name: userInfo?.name });
 	}
 }

@@ -10,13 +10,13 @@ import { IUserService } from './users.service.interface';
 
 const ConfigServiceMock: IConfigService = {
 	get: jest.fn(),
-}; 
+};
 
 const UsersRepositoryMock: IUsersRepository = {
 	find: jest.fn(),
 	create: jest.fn(),
 };
- 
+
 const container = new Container();
 let configService: IConfigService;
 let usersRepository: IUsersRepository;
@@ -54,7 +54,7 @@ describe('User Service', () => {
 		expect(createdUser?.password).not.toEqual('1');
 	});
 
-    it('validateUser - success', async () => {
+	it('validateUser - success', async () => {
 		usersRepository.find = jest.fn().mockReturnValueOnce(createdUser);
 		const res = await usersService.validateUser({
 			email: 'test1@test1.com',

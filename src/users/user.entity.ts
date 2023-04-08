@@ -11,15 +11,15 @@ export class User {
 		if (passwordHash) this._password = passwordHash;
 	}
 
-	get email() {
+	get email(): string {
 		return this._email;
 	}
 
-	get name() {
+	get name(): string {
 		return this._name;
 	}
 
-	get password() {
+	get password(): string {
 		return this._password;
 	}
 
