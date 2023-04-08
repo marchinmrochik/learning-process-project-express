@@ -34,9 +34,14 @@ export class UserController extends BaseController implements IUserController {
 		]);
 	}
 
-	login(req: Request<{}, {}, UserLoginDTO>, res: Response, next: NextFunction): void {
-		console.log(req.body);
-		next(new HTTPError(401, 'error auth', 'login'));
+	async login({ body }: Request<{}, {}, UserLoginDTO>, res: Response, next: NextFunction): Promise<void> {
+		const result = await this.userService.validateUser(body); 
+
+		if (!result) {
+			return next(new HTTPError(401, 'Authorization error', 'login'));
+		}
+
+		this.ok(res, `Done auth for ${body.email}`);
 	}
 
 	async register(
