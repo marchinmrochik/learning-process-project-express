@@ -13,18 +13,18 @@ import { UserModel } from '@prisma/client';
 export class UserService implements IUserService {
 	constructor(
 		@inject(TYPES.ConfigService) private configService: IConfigService,
-		@inject(TYPES.UsersRepository) private usersRepository: IUsersRepository
+		@inject(TYPES.UsersRepository) private usersRepository: IUsersRepository,
 	) {}
 
 	async createUser({ email, password, name }: UserRegisterDTO): Promise<UserModel | null> {
 		const newUser = new User(email, name);
 		const salt = this.configService.get('SALT');
-		
+
 		await newUser.setPassword(password, Number(salt));
-		
+
 		const existedUser = await this.usersRepository.find(email);
 
-		if(existedUser) {
+		if (existedUser) {
 			return null;
 		}
 
@@ -33,8 +33,8 @@ export class UserService implements IUserService {
 
 	async validateUser({ email, password }: UserLoginDTO): Promise<boolean> {
 		const existedUser = await this.usersRepository.find(email);
-	
-		if(!existedUser) return false;
+
+		if (!existedUser) return false;
 
 		const newUser = new User(existedUser.email, existedUser.name, existedUser.password);
 		return newUser.comparePassword(password);

@@ -4,12 +4,12 @@ export class User {
 	private _password: string;
 
 	constructor(
-		private readonly _email: string, 
+		private readonly _email: string,
 		private readonly _name: string,
-		passwordHash?: string
-		) {
-			if(passwordHash) this._password = passwordHash;
-		}
+		passwordHash?: string,
+	) {
+		if (passwordHash) this._password = passwordHash;
+	}
 
 	get email() {
 		return this._email;
