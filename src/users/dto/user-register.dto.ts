@@ -1,6 +1,5 @@
 import { IsEmail, IsString } from "class-validator";
 
-
 export class UserRegisterDTO {
   @IsEmail({}, { message: "Email wrong!" })
   email: string;
