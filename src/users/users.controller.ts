@@ -8,15 +8,14 @@ import { IUserController } from './users.controller.interface';
 import 'reflect-metadata';
 import { UserLoginDTO } from './dto/user-login.dto';
 import { UserRegisterDTO } from './dto/user-register.dto';
-import { User } from './user.entity';
-import { UserService } from './users.service';
 import { ValidateMiddleware } from '../common/validate.middleware';
+import { IUserService } from './users.service.interface';
 
 @injectable()
 export class UserController extends BaseController implements IUserController {
 	constructor(
 		@inject(TYPES.ILogger) private loggerService: ILogger,
-		@inject(TYPES.UserService) private userService: UserService,
+		@inject(TYPES.UserService) private userService: IUserService,
 	) {
 		super(loggerService);
 		this.bindRoutes([
